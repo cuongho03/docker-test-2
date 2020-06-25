@@ -5,11 +5,12 @@
       "RUN mkdir -p /usr/src/app",
       "WORKDIR /usr/src/app",
       "COPY ./package.json /usr/src/app/",
-     
       "RUN yarn install --no-cache",
- 
+      "RUN apk add --no-cache curl git",
+      "RUN apk add --no-cache --virtual .build-deps ca-certificates wget python make g++",
+      "RUN yarn install --no-cache",
+      "RUN apk del .build-deps",
       "COPY ./ /usr/src/app/",
-  
       "CMD [ \"yarn\", \"start\" ]"
   ]
 }
