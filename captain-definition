@@ -3,7 +3,7 @@
   "dockerfileLines": [
       "FROM node:12.13.0-alpine",
       "RUN mkdir -p /usr/src/app",
-  
+      "WORKDIR /usr/src/app",
       "COPY ./package.json /usr/src/app/",
       "RUN yarn install --no-cache",
       "RUN apk add --no-cache curl git",
@@ -14,7 +14,6 @@
       "COPY ./public /usr/src/app/",
       "COPY ./src /usr/src/app/",
       "COPY . /usr/src/app/",
-      "WORKDIR /usr/src/app",
       "ENV NODE_ENV production",
       "ENV PORT 80",
       "EXPOSE 80",
