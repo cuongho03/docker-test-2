@@ -1,8 +1,13 @@
 {
   "schemaVersion": 2,
   "dockerfileLines": [
-    "FROM socialengine/nginx-spa:latest", 
-    "COPY ./build /app", 
-    "RUN chmod -R 777 /app"
+      "FROM node:12.13.0-alpine",
+      "RUN chmod -R 777 /app",
+      "COPY ./package.json /app",
+      "RUN apk add --no-cache curl git",
+      "RUN apk add --no-cache --virtual .build-deps ca-certificates wget python make g++",
+      "RUN yarn install --no-cache",
+      "COPY ./ /app",
+      "CMD [ \"yarn\", \"start\" ]"
   ]
 }
