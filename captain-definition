@@ -2,14 +2,13 @@
   "schemaVersion": 2,
   "dockerfileLines": [
       "FROM node:12.13.0-alpine",
-      "RUN mkdir -p /usr/src/app",
-      "WORKDIR /usr/src/app",
-      "COPY ./package.json /usr/src/app/",
-      "RUN npm install && npm cache clean --force",
-      "COPY ./ /usr/src/app",
-      "ENV NODE_ENV production",
-      "ENV PORT 80",
+      "RUN mkdir -p /src/app",
+      "WORKDIR /src/app",
+      "COPY ./src/package.json /src/app/",
+      "RUN npm install && npm install -g pushstate-server",
+      "COPY ./src /src/app",
+      "RUN npm run build",
       "EXPOSE 80",
-      "CMD [ \"yarn\", \"start\" ]"
+      "CMD [ \"npm\", \"run\", \"start:prod\" ]"
   ]
 }
